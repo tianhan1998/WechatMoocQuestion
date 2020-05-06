@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.th.mapper.QuestionMapper">
+
+    <select id="findAnswer" resultType="Question">
+        select * from question
+            <where>
+                <choose>
+                    <when test="question!=null and question!=''">
+                        question like "%" #{question} "%"
+                    </when>
+                    <otherwise>
+                        id = -1
+                    </otherwise>
+                </choose>
+            </where>
+    </select>
+
+    <insert id="insertQuestion">
+        insert into question(question, answer) values(#{question},#{answer})
+    </insert>
+
+</mapper>
